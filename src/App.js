@@ -1,5 +1,3 @@
-import logo from './platzi.webp';
-import './App.css';
 import React from 'react';
 
 // Componentes
@@ -31,7 +29,7 @@ const defaultTodos = [
 
 function App() {
    return (
-      <React.Fragment>
+      <>
          <TodoCounter complited={16} total={25} />
          <TodoSearch />
 
@@ -46,7 +44,7 @@ function App() {
          </TodoList>
 
          <CreateTodoButton />
-      </React.Fragment>
+      </>
    );
 }
 
