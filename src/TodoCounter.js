@@ -1,10 +1,10 @@
-const estilos = {
-   backgroundColor: 'red',
-};
-
 function TodoCounter({ total, complited }) {
    return (
-      <h1 style={estilos}>
+      <h1
+         style={{
+            backgroundColor: 'red',
+         }}
+      >
          Has completado {complited} de {total} TODOs
       </h1>
    );
