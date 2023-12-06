@@ -2,7 +2,7 @@ function TodoCounter({ total, complited }) {
    return (
       <h1
          style={{
-            backgroundColor: 'red',
+            fontSize: 24,
          }}
       >
          Has completado {complited} de {total} TODOs
