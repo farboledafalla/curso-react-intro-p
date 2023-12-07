@@ -25,13 +25,34 @@ const defaultTodos = [
       text: 'LALALALALALA',
       completed: true,
    },
+   {
+      text: 'Usar estados derivados',
+      completed: true,
+   },
 ];
 
 function App() {
+   // Estado para manejar los todos y lo inicializamos con el array de todos
+   const [todos, setTodos] = React.useState(defaultTodos);
+   const [searchValue, setSearchValue] = React.useState('');
+
+   //Estados derivados
+   // Usamos la doble negación para asegurarnos que se retorne un booleano, si lo que tiene es cualquier valor
+   // diferente de cero, puede ser un string, un número, lo que sea.
+   // Cuenta lo que tienen todo.completed = true
+   const completedTodos = todos.filter((todo) => !!todo.completed).length;
+   const totalTodos = todos.length;
+
+   console.log('Los usuarios buscan Todos de: ' + searchValue);
+
    return (
       <>
-         <TodoCounter complited={16} total={25} />
-         <TodoSearch />
+         {/* Pasamos la cantidad completada (completedTodos) y el total de todos */}
+         <TodoCounter complited={completedTodos} total={totalTodos} />
+         <TodoSearch
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+         />
 
          <TodoList>
             {
