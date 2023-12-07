@@ -28,10 +28,17 @@ const defaultTodos = [
 ];
 
 function App() {
+   const [searchValue, setSearchValue] = React.useState('');
+
+   console.log('Los usuarios buscan Todos de: ' + searchValue);
+
    return (
       <>
          <TodoCounter complited={16} total={25} />
-         <TodoSearch />
+         <TodoSearch
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+         />
 
          <TodoList>
             {
