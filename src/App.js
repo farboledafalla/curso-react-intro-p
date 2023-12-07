@@ -42,6 +42,11 @@ function App() {
    // Cuenta lo que tienen todo.completed = true
    const completedTodos = todos.filter((todo) => !!todo.completed).length;
    const totalTodos = todos.length;
+   const searchedTodos = todos.filter((todo) => {
+      const todoText = todo.text.toLowerCase();
+      const searchText = searchValue.toLowerCase();
+      return todoText.includes(searchText);
+   });
 
    console.log('Los usuarios buscan Todos de: ' + searchValue);
 
@@ -57,7 +62,7 @@ function App() {
          <TodoList>
             {
                // Mostrar los Todos del array
-               defaultTodos.map((todo) => (
+               searchedTodos.map((todo) => (
                   <TodoItem
                      key={todo.text}
                      text={todo.text}
