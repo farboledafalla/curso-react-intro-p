@@ -34,13 +34,16 @@ function App() {
          <TodoSearch />
 
          <TodoList>
-            {defaultTodos.map((todo) => (
-               <TodoItem
-                  key={todo.text}
-                  text={todo.text}
-                  completed={todo.completed}
-               />
-            ))}
+            {
+               // Mostrar los Todos del array
+               defaultTodos.map((todo) => (
+                  <TodoItem
+                     key={todo.text}
+                     text={todo.text}
+                     completed={todo.completed}
+                  />
+               ))
+            }
          </TodoList>
 
          <CreateTodoButton />
