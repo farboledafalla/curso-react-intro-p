@@ -50,6 +50,20 @@ function App() {
 
    console.log('Los usuarios buscan Todos de: ' + searchValue);
 
+   // Se recibe el texto que viene siendo el 'key' y este lo usaremos para encontrar el 'todo' dentro del Array
+   const completeTodo = (text) => {
+      // Oblener una compia del Array actual que está en el estado (todos)
+      const newTodos = [...todos];
+      /* Hallar el indice a modifivar 'todoIndex' y esto lo debemos hacer mediante un identificador único, para nuestro caso es <TodoItem key={todo.text} /> */
+      // Para ello necesitamos cual es ese identificador en esta función y la recibiremos como argumento ''const completeTodo = (text) => {}'
+      // No solo puedo encontrar el elemento, sino también el indice usando 'findIndex'
+      const todoIndex = newTodos.findIndex((todo) => todo.text === text);
+      // Saber cual elemento modificar, definiremos la posición del elemento a actualizar como  'todoIndex' y actualizar 'completed=true'
+      newTodos[todoIndex].completed = !newTodos[todoIndex].completed;
+      /* Hallar el todo que fue marcado como realizado, marcar la propiedad 'todos.completed' en 'true', crear un nuevo Array (newTodos) y enviarselo a la función modificadora del estado (setTodos) para que ahora muestre los (todos) actualizados */
+      setTodos(newTodos);
+   };
+
    return (
       <>
          {/* Pasamos la cantidad completada (completedTodos) y el total de todos */}
@@ -61,12 +75,13 @@ function App() {
 
          <TodoList>
             {
-               // Mostrar los Todos del array
+               // Mostrar los Todos que coinciden con la búsqueda
                searchedTodos.map((todo) => (
                   <TodoItem
                      key={todo.text}
                      text={todo.text}
                      completed={todo.completed}
+                     onComplete={() => completeTodo(todo.text)}
                   />
                ))
             }
