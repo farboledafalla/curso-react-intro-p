@@ -1,11 +1,8 @@
 import React from 'react';
 
 // Componentes
-import { TodoCounter } from './TodoCounter';
-import { TodoSearch } from './TodoSearch';
-import { TodoList } from './TodoList';
-import { TodoItem } from './TodoItem';
-import { CreateTodoButton } from './CreateTodoButton';
+import { AppUI } from './AppUI';
+import { useLocalStorage } from './useLocalStorage';
 
 // Todos por defecto
 // const defaultTodos = [
@@ -34,38 +31,6 @@ import { CreateTodoButton } from './CreateTodoButton';
 // localStorage.setItem('TODOS_V1', JSON.stringify(defaultTodos));
 // localStorage.getItem('TODOS_V1');
 // localStorage.removeItem('TODOS_V1');
-
-// Debemos exportar la función 'saveTodos()' para que las funciones que la consumen puedan hacerlo
-function useLocalStorage(itemName, initialValue) {
-   // Primero definimos la existencia del origen para poder inicializar el estado
-   const localStorageItem = localStorage.getItem(itemName);
-
-   let parsedItem;
-
-   /* Si el localStorage no trae algo, es decir, que no existe, debemos inicializarlo vacio tanto en la aplicación como en el localStorage */
-   if (!localStorageItem) {
-      // Se inicializa en el localStorage
-      const emptyItem = JSON.stringify(initialValue);
-      localStorage.setItem(itemName, emptyItem);
-      // Se inicializa en la aplicacion
-      parsedItem = initialValue;
-   } else {
-      parsedItem = JSON.parse(localStorageItem);
-   }
-
-   // Una vez confirmada la existencia del origen de los datos, podemos inicializar el estado
-   const [item, setItem] = React.useState(parsedItem);
-
-   // Recibo el nuevo Array de TODOS y los guardo en el estado y en localStorage
-   const saveItem = (newItem) => {
-      // localStorage
-      localStorage.setItem(itemName, JSON.stringify(newItem));
-      // Estado
-      setItem(newItem);
-   };
-
-   return [item, saveItem];
-}
 
 function App() {
    //let parsedTodos = JSON.parse(localStorageTodos);
@@ -108,31 +73,15 @@ function App() {
    };
 
    return (
-      <>
-         {/* Pasamos la cantidad completada (completedTodos) y el total de todos */}
-         <TodoCounter complited={completedTodos} total={totalTodos} />
-         <TodoSearch
-            searchValue={searchValue}
-            setSearchValue={setSearchValue}
-         />
-
-         <TodoList>
-            {
-               // Mostrar los Todos que coinciden con la búsqueda
-               searchedTodos.map((todo) => (
-                  <TodoItem
-                     key={todo.text}
-                     text={todo.text}
-                     completed={todo.completed}
-                     onComplete={() => completeTodo(todo.text)}
-                     onDelete={() => deleteTodo(todo.text)}
-                  />
-               ))
-            }
-         </TodoList>
-
-         <CreateTodoButton />
-      </>
+      <AppUI
+         completedTodos={completedTodos}
+         totalTodos={totalTodos}
+         searchValue={searchValue}
+         setSearchValue={setSearchValue}
+         searchedTodos={searchedTodos}
+         completeTodo={completeTodo}
+         deleteTodo={deleteTodo}
+      />
    );
 }
 
