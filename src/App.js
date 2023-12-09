@@ -35,26 +35,43 @@ import { CreateTodoButton } from './CreateTodoButton';
 // localStorage.getItem('TODOS_V1');
 // localStorage.removeItem('TODOS_V1');
 
-function App() {
-   const localStorageTodos = localStorage.getItem('TODOS_V1');
+// Debemos exportar la función 'saveTodos()' para que las funciones que la consumen puedan hacerlo
+function useLocalStorage(itemName, initialValue) {
+   // Primero definimos la existencia del origen para poder inicializar el estado
+   const localStorageItem = localStorage.getItem(itemName);
 
-   let parsedTodos;
+   let parsedItem;
 
    /* Si el localStorage no trae algo, es decir, que no existe, debemos inicializarlo vacio tanto en la aplicación como en el localStorage */
-   if (!localStorageTodos) {
+   if (!localStorageItem) {
       // Se inicializa en el localStorage
-      const emptyTodos = JSON.stringify([]);
-      localStorage.setItem('TODOS_V1', emptyTodos);
+      const emptyItem = JSON.stringify(initialValue);
+      localStorage.setItem(itemName, emptyItem);
       // Se inicializa en la aplicacion
-      parsedTodos = [];
+      parsedItem = initialValue;
    } else {
-      parsedTodos = JSON.parse(localStorageTodos);
+      parsedItem = JSON.parse(localStorageItem);
    }
 
+   // Una vez confirmada la existencia del origen de los datos, podemos inicializar el estado
+   const [item, setItem] = React.useState(parsedItem);
+
+   // Recibo el nuevo Array de TODOS y los guardo en el estado y en localStorage
+   const saveItem = (newItem) => {
+      // localStorage
+      localStorage.setItem(itemName, JSON.stringify(newItem));
+      // Estado
+      setItem(newItem);
+   };
+
+   return [item, saveItem];
+}
+
+function App() {
    //let parsedTodos = JSON.parse(localStorageTodos);
 
    // Estado para manejar los todos y lo inicializamos con el array de todos
-   const [todos, setTodos] = React.useState(parsedTodos);
+   const [todos, saveTodos] = useLocalStorage('TODOS_V1', []);
    const [searchValue, setSearchValue] = React.useState('');
 
    //Estados derivados
@@ -68,14 +85,6 @@ function App() {
       const searchText = searchValue.toLowerCase();
       return todoText.includes(searchText);
    });
-
-   // Recibo el nuevo Array de TODOS y los guardo en el estado y en localStorage
-   const saveTodos = (newTodos) => {
-      // localStorage
-      localStorage.setItem('TODOS_V1', JSON.stringify(newTodos));
-      // Estado
-      setTodos(newTodos);
-   };
 
    // Se recibe el texto que viene siendo el 'key' y este lo usaremos para encontrar el 'todo' dentro del Array
    const completeTodo = (text) => {
