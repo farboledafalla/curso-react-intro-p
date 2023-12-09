@@ -75,10 +75,7 @@ function App() {
       <>
          {/* Pasamos la cantidad completada (completedTodos) y el total de todos */}
          <TodoCounter complited={completedTodos} total={totalTodos} />
-         <TodoSearch
-            searchValue={searchValue}
-            setSearchValue={setSearchValue}
-         />
+         <TodoSearch searchValue={searchValue} setSearchValue={setSearchValue} />
 
          <TodoList>
             {
