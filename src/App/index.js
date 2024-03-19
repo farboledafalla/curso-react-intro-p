@@ -45,11 +45,6 @@ function App() {
    // Cuenta lo que tienen todo.completed = true
    const completedTodos = todos.filter((todo) => !!todo.completed).length;
    const totalTodos = todos.length;
-
-   console.log('Log 1')
-   console.log('Log 2')
-   console.log('Log 3')
-
    const searchedTodos = todos.filter((todo) => {
       const todoText = todo.text.toLowerCase();
       const searchText = searchValue.toLowerCase();
@@ -66,7 +61,7 @@ function App() {
       const todoIndex = newTodos.findIndex((todo) => todo.text === text);
       // Saber cual elemento modificar, definiremos la posición del elemento a actualizar como  'todoIndex' y actualizar 'completed=true'
       newTodos[todoIndex].completed = !newTodos[todoIndex].completed;
-      /* Hallar el todo que fue marcado como realizado, marcar la propiedad 'todos.completed' en 'true', crear un nuevo Array (newTodos) y enviarselo a la función modificadora del estado (setTodos) para que ahora muestre los (todos) actualizados */ 
+      /* Hallar el todo que fue marcado como realizado, marcar la propiedad 'todos.completed' en 'true', crear un nuevo Array (newTodos) y enviarselo a la función modificadora del estado (setTodos) para que ahora muestre los (todos) actualizados */
       saveTodos(newTodos);
    };
 
