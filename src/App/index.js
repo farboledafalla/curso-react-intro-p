@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 // Componentes
 import { AppUI } from './AppUI';
@@ -45,6 +45,16 @@ function App() {
    // Cuenta lo que tienen todo.completed = true
    const completedTodos = todos.filter((todo) => !!todo.completed).length;
    const totalTodos = todos.length;
+
+   console.log('Log 1');
+
+   // Lo que encapsulemos dentro de un useEffect() se ejecuta de último, si el segundo parámetro es un ARRAY vacío - se ejecuta solo al recargar la página la primera vez. Si el ARRAY contienen estados, este ARROW FUNCTION se ejecuta cuando cambie uno de los estados contenidos en dicho ARRAY.
+   useEffect(() => {
+      console.log('Loooog 2');
+   }, [searchValue]);
+
+   console.log('Log 3');
+
    const searchedTodos = todos.filter((todo) => {
       const todoText = todo.text.toLowerCase();
       const searchText = searchValue.toLowerCase();
