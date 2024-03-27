@@ -5,6 +5,8 @@ import { TodoItem } from '../TodoItem';
 import { CreateTodoButton } from '../CreateTodoButton';
 
 function AppUI({
+   loading,
+   error,
    completedTodos,
    totalTodos,
    searchValue,
@@ -23,6 +25,10 @@ function AppUI({
          />
 
          <TodoList>
+            {loading && <p>Estamos cargando...</p>}
+            {error && <p>Hubo un error!!!</p>}
+            {(!loading && searchedTodos === 0) && <p>Crea tu primer TODO!</p>}
+
             {
                // Mostrar los Todos que coinciden con la búsqueda
                searchedTodos.map((todo) => (
