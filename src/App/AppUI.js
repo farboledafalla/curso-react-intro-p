@@ -2,6 +2,9 @@ import { TodoCounter } from '../TodoCounter';
 import { TodoSearch } from '../TodoSearch';
 import { TodoList } from '../TodoList';
 import { TodoItem } from '../TodoItem';
+import { TodosLoading } from '../TodosLoading';
+import { TodosError } from '../TodosError';
+import { EmptyTodos } from '../EmptyTodos';
 import { CreateTodoButton } from '../CreateTodoButton';
 
 function AppUI({
@@ -25,9 +28,17 @@ function AppUI({
          />
 
          <TodoList>
-            {loading && <p>Estamos cargando...</p>}
-            {error && <p>Hubo un error!!!</p>}
-            {(!loading && searchedTodos === 0) && <p>Crea tu primer TODO!</p>}
+            {loading && (
+               <>
+                  <TodosLoading />
+                  <TodosLoading />
+                  <TodosLoading />
+               </>
+            )}
+            {error && <TodosError />}
+
+            {/* Si no estamos cargando y no hay TODO's */}
+            {!loading && searchedTodos === 0 && <EmptyTodos />}
 
             {
                // Mostrar los Todos que coinciden con la búsqueda
