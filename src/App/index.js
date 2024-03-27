@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 // Componentes
 import { AppUI } from './AppUI';
@@ -36,7 +36,15 @@ function App() {
    //let parsedTodos = JSON.parse(localStorageTodos);
 
    // Estado para manejar los todos y lo inicializamos con el array de todos
-   const [todos, saveTodos] = useLocalStorage('TODOS_V1', []);
+   // Ahora recibimos un objeto y no un ARRAY, porque son más de 2 elementos retornados
+   // Debemos recibir item y no todos, saveItem y no saveTodos, esto nos genera error porque esas variables no las usamos aquí, entonces renombramos las propiedades recibidas
+   const {
+      item: todos,
+      saveItem: saveTodos,
+      loading,
+      error,
+   } = useLocalStorage('TODOS_V1', []);
+
    const [searchValue, setSearchValue] = React.useState('');
 
    //Estados derivados
@@ -45,15 +53,6 @@ function App() {
    // Cuenta lo que tienen todo.completed = true
    const completedTodos = todos.filter((todo) => !!todo.completed).length;
    const totalTodos = todos.length;
-
-   console.log('Log 1');
-
-   // Lo que encapsulemos dentro de un useEffect() se ejecuta de último, si el segundo parámetro es un ARRAY vacío - se ejecuta solo al recargar la página la primera vez. Si el ARRAY contienen estados, este ARROW FUNCTION se ejecuta cuando cambie uno de los estados contenidos en dicho ARRAY.
-   useEffect(() => {
-      console.log('Loooog 2');
-   }, [searchValue]);
-
-   console.log('Log 3');
 
    const searchedTodos = todos.filter((todo) => {
       const todoText = todo.text.toLowerCase();
@@ -84,6 +83,8 @@ function App() {
 
    return (
       <AppUI
+         loading={loading}
+         error={error}
          completedTodos={completedTodos}
          totalTodos={totalTodos}
          searchValue={searchValue}
