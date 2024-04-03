@@ -19,7 +19,9 @@ function TodoProvider({children}) {
    } = useLocalStorage('TODOS_V1', []);
 
    const [searchValue, setSearchValue] = React.useState('');
-
+   
+   // Estado para mostrar u ocultar el modal de <CreateTodoBurton />
+   const [openModal, setOpenModal] = React.useState(true);
    //Estados derivados
    // Usamos la doble negación para asegurarnos que se retorne un booleano, si lo que tiene es cualquier valor
    // diferente de cero, puede ser un string, un número, lo que sea.
@@ -65,6 +67,8 @@ function TodoProvider({children}) {
             searchedTodos,
             completeTodo,
             deleteTodo,
+            openModal,
+            setOpenModal
          }}
       >
          {children}
