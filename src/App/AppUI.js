@@ -55,7 +55,7 @@ function AppUI() {
          </TodoList>
 
          {/* Este componente disparará la creación de un modal */}
-         <CreateTodoButton />
+         <CreateTodoButton setOpenModal={setOpenModal} />
 
          {/* Usaremos un estado llamado 'openModal' para mostrar u ocultar el modal (true, false) */}
          {openModal && (
