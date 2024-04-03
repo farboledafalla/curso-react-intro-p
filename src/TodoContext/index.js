@@ -4,7 +4,7 @@ import { useLocalStorage } from './useLocalStorage';
 const TodoContext = React.createContext();
 
 // 1. Le damos un nombre más diciente (TodoProvider)
-function TodoProvider({children}) {
+function TodoProvider({ children }) {
    // 3. Podemos encapsular toda la lógica de nuestra aplicación
    //let parsedTodos = JSON.parse(localStorageTodos);
 
@@ -19,9 +19,9 @@ function TodoProvider({children}) {
    } = useLocalStorage('TODOS_V1', []);
 
    const [searchValue, setSearchValue] = React.useState('');
-   
+
    // Estado para mostrar u ocultar el modal de <CreateTodoBurton />
-   const [openModal, setOpenModal] = React.useState(true);
+   const [openModal, setOpenModal] = React.useState(false);
    //Estados derivados
    // Usamos la doble negación para asegurarnos que se retorne un booleano, si lo que tiene es cualquier valor
    // diferente de cero, puede ser un string, un número, lo que sea.
@@ -68,7 +68,7 @@ function TodoProvider({children}) {
             completeTodo,
             deleteTodo,
             openModal,
-            setOpenModal
+            setOpenModal,
          }}
       >
          {children}
@@ -78,8 +78,10 @@ function TodoProvider({children}) {
 
 // Debe existir un Provider y un Consumer
 // Esto no lo hacemos así directamente...vamos a crear nuestro propio 'Provider'
-{/* <TodoContext.Provider></TodoContext.Provider>
-<TodoContext.Consumer></TodoContext.Consumer> */}
+{
+   /* <TodoContext.Provider></TodoContext.Provider>
+<TodoContext.Consumer></TodoContext.Consumer> */
+}
 
 // 2. Debemos exportar nuestro TodoProvieder
-export {TodoContext, TodoProvider};
+export { TodoContext, TodoProvider };
