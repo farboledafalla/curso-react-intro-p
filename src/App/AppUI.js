@@ -7,11 +7,19 @@ import { TodosLoading } from '../TodosLoading';
 import { TodosError } from '../TodosError';
 import { EmptyTodos } from '../EmptyTodos';
 import { CreateTodoButton } from '../CreateTodoButton';
+import { Modal } from '../Modal';
 import { TodoContext } from '../TodoContext';
 
 function AppUI() {
-   const { loading, error, searchedTodos, completeTodo, deleteTodo } =
-      React.useContext(TodoContext);
+   const {
+      loading,
+      error,
+      searchedTodos,
+      completeTodo,
+      deleteTodo,
+      openModal,
+      setOpenModal,
+   } = React.useContext(TodoContext);
 
    return (
       <>
@@ -46,7 +54,13 @@ function AppUI() {
             }
          </TodoList>
 
+         {/* Este componente disparará la creación de un modal */}
          <CreateTodoButton />
+
+         {/* Usaremos un estado llamado 'openModal' para mostrar u ocultar el modal (true, false) */}
+         {openModal && (
+            <Modal>Aquí va la funcionalidad de agregar TODO's</Modal>
+         )}
       </>
    );
 }
