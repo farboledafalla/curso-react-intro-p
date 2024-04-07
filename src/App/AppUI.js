@@ -9,6 +9,7 @@ import { EmptyTodos } from '../EmptyTodos';
 import { CreateTodoButton } from '../CreateTodoButton';
 import { Modal } from '../Modal';
 import { TodoContext } from '../TodoContext';
+import { TodoForm } from '../TodoForm';
 
 function AppUI() {
    const {
@@ -59,7 +60,9 @@ function AppUI() {
 
          {/* Usaremos un estado llamado 'openModal' para mostrar u ocultar el modal (true, false) */}
          {openModal && (
-            <Modal>Aquí va la funcionalidad de agregar TODO's</Modal>
+            <Modal>
+               <TodoForm />
+            </Modal>
          )}
       </>
    );
