@@ -35,6 +35,16 @@ function TodoProvider({ children }) {
       return todoText.includes(searchText);
    });
 
+   // Función que agregará el nuevo TODO
+   const addTodo = (text) => {
+      const newTodos = [...todos];
+      newTodos.push({
+         text,
+         completed: false,
+      });
+      saveTodos(newTodos);
+   };
+
    // Se recibe el texto que viene siendo el 'key' y este lo usaremos para encontrar el 'todo' dentro del Array
    const completeTodo = (text) => {
       // Oblener una compia del Array actual que está en el estado (todos)
@@ -69,6 +79,7 @@ function TodoProvider({ children }) {
             deleteTodo,
             openModal,
             setOpenModal,
+            addTodo,
          }}
       >
          {children}
